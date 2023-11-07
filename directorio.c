@@ -10,6 +10,9 @@
 
 
 #include <string.h>
+#include <iostream>
+
+using namespace std;
 
 struct nodo_directorio{
 	//TODO: IMPLEMENT archivos archs ;
@@ -20,11 +23,19 @@ struct nodo_directorio{
     directorio subdirectorio;
 };
 
+bool isEmpty(directorio dir){
+    return (dir == NULL);
+}
+
+void printDirName(directorio dir){
+    cout << dir->nombre << "\n";
+}
+
 directorio Crear_Directorio(Cadena nombre, directorio location){
 // Retorna un directorio de nombre "nombre".
 	directorio d = new(nodo_directorio);
-    if(strcmp(nombre, "RAIZ") && location == NULL){
-	    d->nombre = new char[MAX_NOMBRE];
+	d->nombre = new char[MAX_NOMBRE];
+    if((strcmp(nombre, "RAIZ") == 0) && location == NULL){
         strcpy(d->nombre, nombre);
         d->padre = NULL;
         d->hermano = NULL;
@@ -56,21 +67,25 @@ directorio tail(directorio dir){
     return dir->hermano;
 }
 
-bool isEmpty(directorio dir){
-    return (dir == NULL);
+directorio moveToParent(directorio dir){
+    if(dir->padre != NULL){
+        dir = dir->padre;
+        return dir;    
+    }
+    cout << "Ya estas en root!";
+    return dir;
 }
 
-bool isSibiling(directorio dir, Cadena nombre){
-    if(isEmpty(dir)){
-        return false;
+directorio isSubdir(directorio dir, Cadena nombre){
+    if(isEmpty(dir->subdirectorio)){
+        return NULL;
     }
-    else if(head(dir)->nombre == nombre){
-        return true;    
+    else if(head(dir->subdirectorio)->nombre == nombre){
+        return dir;    
     } 
     else {
-        isSibiling(tail(dir), nombre);
+        return isSubdir(tail(dir->subdirectorio), nombre);
     }
-    return false;
 }
 
 

@@ -23,6 +23,10 @@ directorio tail(directorio dir);
 
 bool isEmpty(directorio dir);
 
-bool isSibiling(directorio dir, Cadena nombre);
+directorio isSubdir(directorio dir, Cadena nombre);
+
+directorio moveToParent(directorio dir);
+
+void printDirName(directorio dir);
 //Recorre la lista buscando el nombre del directorio deseado en una misma hoja
 #endif
