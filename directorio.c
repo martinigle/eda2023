@@ -80,10 +80,11 @@ directorio isSubdir(directorio dir, Cadena nombre){
     if(isEmpty(dir->subdirectorio)){
         return NULL;
     }
-    else if(head(dir->subdirectorio)->nombre == nombre){
-        return dir;    
+    else if(strcmp(head(dir->subdirectorio)->nombre, nombre) == 0){
+        return head(dir->subdirectorio);    
     } 
     else {
+        printDirName(dir->subdirectorio);
         return isSubdir(tail(dir->subdirectorio), nombre);
     }
 }

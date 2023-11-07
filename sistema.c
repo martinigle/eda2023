@@ -54,9 +54,9 @@ TipoRet CD (Sistema &s, Cadena nombreDirectorio){
         cout << "Ese subdirectorio no existe!";
         return ERROR;    
     }
-    printDirName(s->actual);
+    //printDirName(s->actual);
     s->actual = isSubdir(s->actual, nombreDirectorio);
-    printDirName(s->actual);	
+    //printDirName(s->actual);	
     return OK;
 }
 	
