@@ -21,12 +21,18 @@ directorio head(directorio dir);
 
 directorio tail(directorio dir);
 
-bool isEmpty(directorio dir);
-
-directorio isSubdir(directorio dir, Cadena nombre);
+directorio getSubdir(directorio dir, Cadena nombre);
+//Recorre la lista de subdirectorios de un directorio hasta encontrar el deseado y retorna el directorio en caso de encontrarlo
 
 directorio moveToParent(directorio dir);
 
+directorio deleteDir(directorio dir);
+
+bool isSubdir(directorio dir, Cadena nombre);
+//Recorre la lista de subdirectorios de un directorio hasta encontrar el deseado y retorna true/false en caso de encontrarlo o no
+
+bool isEmpty(directorio dir);
+
 void printDirName(directorio dir);
-//Recorre la lista buscando el nombre del directorio deseado en una misma hoja
+
 #endif
