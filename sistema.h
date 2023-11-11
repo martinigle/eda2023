@@ -83,5 +83,3 @@ TipoRet REPLACE (Sistema &s, Cadena nombreArchivo, Cadena texto1, Cadena texto2)
 // Para mas detalles ver letra.
 
 #endif
-
-

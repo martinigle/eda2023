@@ -45,14 +45,33 @@ TipoRet DESTRUIRSISTEMA(Sistema &s){
 
 TipoRet CD (Sistema &s, Cadena nombreDirectorio){
 // Cambia directorio. 
-// Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(strcmp(nombreDirectorio, "..") == 0){
+        s->actual = moveToParent(s->actual);
+        printDirName(s->actual);
+        return OK;    
+    }
+    else if(isSubdir(s->actual, nombreDirectorio) == false){
+        cout << "Ese subdirectorio no existe!";
+        return ERROR;    
+    }
+    s->actual = getSubdir(s->actual, nombreDirectorio);
+    printDirName(s->actual);	
+    return OK;
 }
 	
 TipoRet MKDIR (Sistema &s, Cadena nombreDirectorio){
 // Crea un nuevo directorio. 
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(strcmp(nombreDirectorio, "RAIZ") == 0){
+        cout << "No se puede crear un directorio de nombre raiz!" ; 
+        return ERROR;    
+    }
+    else if(isSubdir(s->actual, nombreDirectorio)){
+        cout << "Ya existe un subdirectorio con ese nombre!" ;       
+        return ERROR;    
+    }
+    Crear_Directorio(nombreDirectorio, s->actual);
+	return OK;
 }
 
 TipoRet RMDIR (Sistema &s, Cadena nombreDirectorio){
@@ -73,12 +92,22 @@ TipoRet DIR (Sistema &s, Cadena parametro){
 	return NO_IMPLEMENTADA;
 }
 
-TipoRet CREATEFILE (Sistema &s, Cadena nombreArchivo){
-// Crea un nuevo archivo en el directorio actual.
-// Para mas detalles ver letra.
-	
-	return NO_IMPLEMENTADA;
+TipoRet CREATEFILE(Sistema &s, Cadena nombreArchivo) {
+    // Crea un nuevo archivo en el directorio actual.
+    directorio directorioActual = s->actual;
+    archivo archivoActual = directorioActual->archivos;
+    while (archivoActual != NULL) {
+        if (strcmp(archivoActual->nombre, nombreArchivo) == 0) {
+            // Ya existe un archivo con ese nombre en el directorio actual
+            return ERROR;
+        }
+        archivoActual = archivoActual->hermano;
+    }
+    // El archivo no existe, podemos crearlo
+    archivo nuevoArchivo = Crear_Archivo(nombreArchivo, directorioActual);
+    return OK;
 }
+
 
 TipoRet DELETE (Sistema &s, Cadena nombreArchivo){
 // Elimina un archivo del directorio actual, siempre y cuando no sea de sólo lectura.
@@ -133,5 +162,3 @@ TipoRet REPLACE (Sistema &s, Cadena nombreArchivo, Cadena texto1, Cadena texto2)
 // Para mas detalles ver letra.
 	return NO_IMPLEMENTADA;
 }
-
-

@@ -14,6 +14,9 @@
 enum _retorno{ OK, ERROR, NO_IMPLEMENTADA};
 typedef enum _retorno TipoRet;
 
+enum tipoArchivo{ Lectura, Lectura_Escritura};
+typedef enum tipoArchivo privilegio;
+
 typedef char* Cadena;
 
 #endif
