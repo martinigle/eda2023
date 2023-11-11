@@ -2,7 +2,7 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
-// sistema.c
+// archivos.c
 // Modulo de Implementacion de archivos.
 
 #include "archivos.h"
