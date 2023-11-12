@@ -1,5 +1,5 @@
-todo: main.o sistema.o directorio.o archivos.o 
-	g++ -o main.exe main.o sistema.o directorio.o archivos.o  
+todo: main.o sistema.o archivos.o directorio.o 
+	g++ -o main.exe main.o sistema.o archivos.o directorio.o 
 main.o: main.c
 	g++ -c main.c
 sistema.o: sistema.h sistema.c

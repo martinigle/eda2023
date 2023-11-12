@@ -3,6 +3,7 @@
 
 #include "definiciones.h"
 
+
 // Estructuras de Datos y Algoritmos - Curso 2023
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
@@ -14,7 +15,6 @@ typedef struct nodo_directorio * directorio;
 
 directorio Crear_Directorio(Cadena nombre, directorio location);
 // Retorna un directorio de nombre "nombre".
-
 
 //TODO Write function descriptions
 directorio head(directorio dir);
@@ -28,10 +28,12 @@ directorio moveToParent(directorio dir);
 
 directorio deleteDir(directorio dir);
 
+directorio insertFile(Cadena nombre, directorio dir);
+
 bool isSubdir(directorio dir, Cadena nombre);
 //Recorre la lista de subdirectorios de un directorio hasta encontrar el deseado y retorna true/false en caso de encontrarlo o no
 
-bool isEmpty(directorio dir);
+bool isEmptyDir(directorio dir);
 
 void printDirName(directorio dir);
 

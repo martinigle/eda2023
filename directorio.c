@@ -15,33 +15,30 @@
 using namespace std;
 
 struct nodo_directorio{
-    archs archivos;
+    archivo archivos;
 	Cadena nombre;
     directorio padre;
     directorio hermano;
     directorio subdirectorio;
 };
 
-bool isEmpty(directorio dir){
+
+bool isEmptyDir(directorio dir){
     return (dir == NULL);
 }
 
 bool isSubdir(directorio dir, Cadena nombre){
-    if(isEmpty(dir->subdirectorio)){
+    if(isEmptyDir(dir->subdirectorio)){
         return false;
     } 
     else {
         directorio aux = new(nodo_directorio);
         aux = dir->subdirectorio;
         while(strcmp(aux->nombre, nombre) != 0){
-            if (isEmpty(aux->hermano)){
+            if (isEmptyDir(aux->hermano)){
                 return false;            
             }
-            else if(strcmp(aux->nombre, nombre) == 0){
-                return true;        
-            }
             aux = aux->hermano;
-            cout << aux->nombre;    
         }
         return true; 
     }
@@ -59,11 +56,12 @@ directorio Crear_Directorio(Cadena nombre, directorio location){
         strcpy(d->nombre, nombre);
         d->padre = NULL;
         d->hermano = NULL;
+        d->archivos = NULL;
     } 
     else {
 	    strcpy(d->nombre, nombre);
         d->padre = location;
-        if(isEmpty(location->subdirectorio)){
+        if(isEmptyDir(location->subdirectorio)){
             location->subdirectorio = d;
             d->hermano = NULL;
         } 
@@ -94,29 +92,49 @@ directorio moveToParent(directorio dir){
         dir = dir->padre;
         return dir;    
     }
-    cout << "Ya estas en root!";
+    cout << "\nYa estas en root!";
     return dir;
 }
 
 directorio getSubdir(directorio dir, Cadena nombre){
-    if(isEmpty(dir->subdirectorio)){
+    if(isEmptyDir(dir->subdirectorio)){
         return NULL;
     }
     else {
         directorio aux = new(nodo_directorio);
         aux = dir->subdirectorio;
         while(strcmp(aux->nombre, nombre) != 0){
-            if (isEmpty(aux->hermano)){
+            if (isEmptyDir(aux->hermano)){
                 return dir;            
-            }
-            else if(strcmp(aux->nombre, nombre) == 0){
-                return aux;        
             }
             aux = aux->hermano;
             cout << aux->nombre;    
         }
         return aux; 
     }
+}
+
+
+bool hasArchs(directorio location){
+    if(location->archivos == NULL){
+        return false;    
+    }
+    return true;
+}
+
+directorio insertFile(Cadena nombre, directorio location){
+    if(hasArchs(location)){
+        if(archAvailability(nombre, location->archivos)){
+            Crear_Archivo(nombre, location->archivos);
+            printArchName(location->archivos);
+            return location;
+        }
+        else {
+            return NULL;    
+        }   
+    }
+    location->archivos = Crear_Archivo(nombre, NULL);
+    return location;
 }
 
 //TODO: IMPLEMENTATION OF ARCHS (needs deleteArch to be able to complete this function)
@@ -139,4 +157,3 @@ directorio getSubdir(directorio dir, Cadena nombre){
 //TODO: IMPLEMENTATION
 //    return found;
 //}
-

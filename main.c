@@ -256,5 +256,3 @@ int main (){
 	delete [] comando;
 
 }
-
-

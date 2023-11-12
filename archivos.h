@@ -3,18 +3,24 @@
 
 #include "definiciones.h"
 
-#include "directorio.h"
 
 // Estructuras de Datos y Algoritmos - Curso 2023
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
 // archivo.h
-// Modulo de Definición de archivo.
+// Modulo de Definición de archivos.
 
-typedef struct nodo_archivos * archs;
+typedef struct nodo_archivo * archivo;
 
+bool archAvailability(Cadena nombre, archivo location);
 
-archs crearArchivo(Cadena nombre, directorio location);
+bool isEmptyArch(archivo location);
+
+void printArchName(archivo arch);
+
+archivo Crear_Archivo(Cadena nombre, archivo location);
+
 
 #endif
+

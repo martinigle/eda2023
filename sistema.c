@@ -7,7 +7,6 @@
 
 #include "sistema.h"
 #include "directorio.h"
-
 #include <string.h>
 
 #include <iostream>
@@ -47,15 +46,17 @@ TipoRet CD (Sistema &s, Cadena nombreDirectorio){
 // Cambia directorio. 
     if(strcmp(nombreDirectorio, "..") == 0){
         s->actual = moveToParent(s->actual);
+        cout << "\n ACTUAL:";
         printDirName(s->actual);
         return OK;    
     }
     else if(isSubdir(s->actual, nombreDirectorio) == false){
-        cout << "Ese subdirectorio no existe!";
+        cout << "\nEse subdirectorio no existe!";
         return ERROR;    
     }
     s->actual = getSubdir(s->actual, nombreDirectorio);
-    printDirName(s->actual);	
+    cout << "\n ACTUAL:";
+    printDirName(s->actual);
     return OK;
 }
 	
@@ -63,11 +64,11 @@ TipoRet MKDIR (Sistema &s, Cadena nombreDirectorio){
 // Crea un nuevo directorio. 
 // Para mas detalles ver letra.
     if(strcmp(nombreDirectorio, "RAIZ") == 0){
-        cout << "No se puede crear un directorio de nombre raiz!" ; 
+        cout << "\nNo se puede crear un directorio de nombre raiz!" ; 
         return ERROR;    
     }
     else if(isSubdir(s->actual, nombreDirectorio)){
-        cout << "Ya existe un subdirectorio con ese nombre!" ;       
+        cout << "\nYa existe un subdirectorio con ese nombre!" ;
         return ERROR;    
     }
     Crear_Directorio(nombreDirectorio, s->actual);
@@ -92,12 +93,15 @@ TipoRet DIR (Sistema &s, Cadena parametro){
 	return NO_IMPLEMENTADA;
 }
 
-TipoRet CREATEFILE (Sistema &s, Cadena nombreArchivo){
-// Crea un nuevo archivo en el directorio actual.
-// Para mas detalles ver letra.
-	
-	return NO_IMPLEMENTADA;
+TipoRet CREATEFILE(Sistema &s, Cadena nombreArchivo) {
+    // Crea un nuevo archivo en el directorio actual.
+    if(insertFile(nombreArchivo, s->actual) != NULL){
+        return OK;
+    }
+    cout << "\nYa existe un archivo con ese nombre";
+    return ERROR;
 }
+
 
 TipoRet DELETE (Sistema &s, Cadena nombreArchivo){
 // Elimina un archivo del directorio actual, siempre y cuando no sea de sólo lectura.
@@ -152,5 +156,3 @@ TipoRet REPLACE (Sistema &s, Cadena nombreArchivo, Cadena texto1, Cadena texto2)
 // Para mas detalles ver letra.
 	return NO_IMPLEMENTADA;
 }
-
-
