@@ -61,9 +61,43 @@ archivo Crear_Archivo(Cadena nombre, archivo location) {
         archivo aux = new(nodo_archivo);
         aux = location;
         while (aux->hermano != NULL) {
+            cout << aux->nombre;
             aux = aux->hermano;
         }
         aux->hermano = nuevoArchivo;
+        cout << aux->nombre;
     }
     return nuevoArchivo;
 }
+
+archivo getArch(Cadena nombre, archivo location){
+    if(isEmptyArch(location)){
+        return NULL;
+    }
+    else {
+        archivo aux = new(nodo_archivo);
+        aux = location;
+        while(strcmp(aux->nombre, nombre) != 0){
+            if(isEmptyArch(aux->hermano)){
+                return NULL;
+            }
+            aux = aux->hermano;
+        }
+        return aux;
+    }
+}
+
+archivo insertContent(Cadena texto, Cadena nombre, archivo arch){
+    if(archAvailability(nombre, arch) == false && (strcmp(getArch(nombre, arch)->permisos, "Lectura/Escritura") == 0)){
+        strcat(getArch(nombre, arch)->contenido, texto);
+        return arch;
+    } 
+    return NULL;
+}
+
+void printArchContent(Cadena nombre, archivo location){
+    if(!isEmptyArch(location) && (archAvailability(nombre, location) == false)){
+        cout << getArch(nombre, location)->contenido;
+    }
+}
+

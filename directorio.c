@@ -44,6 +44,13 @@ bool isSubdir(directorio dir, Cadena nombre){
     }
 }
 
+bool hasArchs(directorio location){
+    if(location->archivos == NULL){
+        return false;    
+    }
+    return true;
+}
+
 void printDirName(directorio dir){
     cout << dir->nombre;
 }
@@ -114,19 +121,10 @@ directorio getSubdir(directorio dir, Cadena nombre){
     }
 }
 
-
-bool hasArchs(directorio location){
-    if(location->archivos == NULL){
-        return false;    
-    }
-    return true;
-}
-
 directorio insertFile(Cadena nombre, directorio location){
     if(hasArchs(location)){
         if(archAvailability(nombre, location->archivos)){
             Crear_Archivo(nombre, location->archivos);
-            printArchName(location->archivos);
             return location;
         }
         else {
@@ -135,6 +133,24 @@ directorio insertFile(Cadena nombre, directorio location){
     }
     location->archivos = Crear_Archivo(nombre, NULL);
     return location;
+}
+
+directorio insertText(Cadena nombre, Cadena texto, directorio location){
+    if(hasArchs(location)){
+        insertContent(texto, nombre, location->archivos);
+        return location;
+    } 
+    else {
+        return NULL;    
+    }
+}
+
+directorio printContent(Cadena nombre, directorio location){
+    if(hasArchs(location)){
+        printArchContent(nombre, location->archivos);
+        return location;
+    }
+    return NULL;
 }
 
 //TODO: IMPLEMENTATION OF ARCHS (needs deleteArch to be able to complete this function)

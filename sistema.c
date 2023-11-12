@@ -124,7 +124,11 @@ TipoRet IC (Sistema &s, Cadena nombreArchivo, Cadena texto){
 TipoRet IF (Sistema &s, Cadena nombreArchivo, Cadena texto){
 // Agrega un texto al final del archivo NombreArchivo.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(insertText(nombreArchivo, texto, s->actual) != NULL){
+        return OK;
+    }
+    
+	return ERROR;
 }
 
 TipoRet DC (Sistema &s, Cadena nombreArchivo, int k){
@@ -142,7 +146,10 @@ TipoRet DF (Sistema &s, Cadena nombreArchivo, int k){
 TipoRet TYPE (Sistema &s, Cadena nombreArchivo){
 // Imprime el contenido del archivo parámetro.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(printContent(nombreArchivo, s->actual)!=NULL){
+        return OK;    
+    }
+	return ERROR;
 }
 
 TipoRet SEARCH (Sistema &s, Cadena nombreArchivo, Cadena texto){
