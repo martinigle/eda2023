@@ -45,14 +45,33 @@ TipoRet DESTRUIRSISTEMA(Sistema &s){
 
 TipoRet CD (Sistema &s, Cadena nombreDirectorio){
 // Cambia directorio. 
-// Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(strcmp(nombreDirectorio, "..") == 0){
+        s->actual = moveToParent(s->actual);
+        printDirName(s->actual);
+        return OK;    
+    }
+    else if(isSubdir(s->actual, nombreDirectorio) == false){
+        cout << "Ese subdirectorio no existe!";
+        return ERROR;    
+    }
+    s->actual = getSubdir(s->actual, nombreDirectorio);
+    printDirName(s->actual);	
+    return OK;
 }
 	
 TipoRet MKDIR (Sistema &s, Cadena nombreDirectorio){
 // Crea un nuevo directorio. 
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(strcmp(nombreDirectorio, "RAIZ") == 0){
+        cout << "No se puede crear un directorio de nombre raiz!" ; 
+        return ERROR;    
+    }
+    else if(isSubdir(s->actual, nombreDirectorio)){
+        cout << "Ya existe un subdirectorio con ese nombre!" ;       
+        return ERROR;    
+    }
+    Crear_Directorio(nombreDirectorio, s->actual);
+	return OK;
 }
 
 TipoRet RMDIR (Sistema &s, Cadena nombreDirectorio){
