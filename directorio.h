@@ -32,6 +32,8 @@ directorio insertFile(Cadena nombre, directorio dir);
 
 directorio insertText(Cadena nombre, Cadena texto, directorio location);
 
+directorio deleteText(Cadena nombre, int k, directorio location);
+
 directorio printContent(Cadena nombre, directorio location);
 
 bool isSubdir(directorio dir, Cadena nombre);

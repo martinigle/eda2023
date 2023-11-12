@@ -140,7 +140,11 @@ TipoRet DC (Sistema &s, Cadena nombreArchivo, int k){
 TipoRet DF (Sistema &s, Cadena nombreArchivo, int k){
 // Elimina los a lo sumo K últimos caracteres del archivo parámetro.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+	if(deleteText(nombreArchivo, k, s->actual) != NULL){
+        return OK;
+    }
+    
+	return ERROR;
 }
 
 TipoRet TYPE (Sistema &s, Cadena nombreArchivo){

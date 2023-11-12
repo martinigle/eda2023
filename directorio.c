@@ -139,10 +139,16 @@ directorio insertText(Cadena nombre, Cadena texto, directorio location){
     if(hasArchs(location)){
         insertContent(texto, nombre, location->archivos);
         return location;
-    } 
-    else {
-        return NULL;    
     }
+    return NULL;    
+}
+
+directorio deleteText(Cadena nombre, int k, directorio location){
+    if(hasArchs(location)){
+        deleteContent(nombre, k, location->archivos);
+        return location;
+    }
+    return NULL;
 }
 
 directorio printContent(Cadena nombre, directorio location){

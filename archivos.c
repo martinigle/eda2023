@@ -49,10 +49,8 @@ void printArchName(archivo arch){
 archivo Crear_Archivo(Cadena nombre, archivo location) {
     archivo nuevoArchivo = new(nodo_archivo);
     nuevoArchivo->nombre = new char[MAX_NOMBRE];
-    nuevoArchivo->contenido = new char[TEXTO_MAX];
     nuevoArchivo->permisos = new char[17];
 	strcpy(nuevoArchivo->nombre, nombre);
-    strcpy(nuevoArchivo->contenido, "");
     strcpy(nuevoArchivo->permisos, "Lectura/Escritura");
     nuevoArchivo->hermano = NULL;
     if (isEmptyArch(location)) {
@@ -88,10 +86,29 @@ archivo getArch(Cadena nombre, archivo location){
 }
 
 archivo insertContent(Cadena texto, Cadena nombre, archivo arch){
+    //TODO: change strcat because overlaps TEXTO_MAX
     if(archAvailability(nombre, arch) == false && (strcmp(getArch(nombre, arch)->permisos, "Lectura/Escritura") == 0)){
-        strcat(getArch(nombre, arch)->contenido, texto);
-        return arch;
+        if(strlen(texto)<TEXTO_MAX){
+            getArch(nombre, arch)->contenido = new char[strlen(texto)];
+            strcat(getArch(nombre, arch)->contenido, texto);
+            return arch;
+        } else {
+            getArch(nombre, arch)->contenido = new char[TEXTO_MAX];
+            strcat(getArch(nombre, arch)->contenido, texto);
+            return arch;
+        }        
     } 
+    return NULL;
+}
+
+archivo deleteContent(Cadena nombre, int k, archivo arch){
+    //TODO: FIX
+    if(archAvailability(nombre, arch) == false && (strcmp(getArch(nombre, arch)->permisos, "Lectura/Escritura") == 0)){
+        Cadena aux = new char[strlen(getArch(nombre, arch)->contenido)-k];
+        strcpy(aux, getArch(nombre, arch)->contenido);
+        getArch(nombre, arch)->contenido = aux;
+        return arch;
+    }
     return NULL;
 }
 
