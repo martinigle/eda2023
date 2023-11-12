@@ -68,7 +68,7 @@ TipoRet MKDIR (Sistema &s, Cadena nombreDirectorio){
         return ERROR;    
     }
     else if(isSubdir(s->actual, nombreDirectorio)){
-        cout << "\nYa existe un subdirectorio con ese nombre!" ;       
+        cout << "\nYa existe un subdirectorio con ese nombre!" ;
         return ERROR;    
     }
     Crear_Directorio(nombreDirectorio, s->actual);
@@ -98,6 +98,7 @@ TipoRet CREATEFILE(Sistema &s, Cadena nombreArchivo) {
     if(insertFile(nombreArchivo, s->actual) != NULL){
         return OK;
     }
+    cout << "\nYa existe un archivo con ese nombre";
     return ERROR;
 }
 

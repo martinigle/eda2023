@@ -30,7 +30,6 @@ directorio deleteDir(directorio dir);
 
 directorio insertFile(Cadena nombre, directorio dir);
 
-
 bool isSubdir(directorio dir, Cadena nombre);
 //Recorre la lista de subdirectorios de un directorio hasta encontrar el deseado y retorna true/false en caso de encontrarlo o no
 

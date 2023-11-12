@@ -22,6 +22,7 @@ struct nodo_directorio{
     directorio subdirectorio;
 };
 
+
 bool isEmptyDir(directorio dir){
     return (dir == NULL);
 }
@@ -46,7 +47,6 @@ bool isSubdir(directorio dir, Cadena nombre){
 void printDirName(directorio dir){
     cout << dir->nombre;
 }
-
 
 directorio Crear_Directorio(Cadena nombre, directorio location){
 // Retorna un directorio de nombre "nombre".
@@ -107,15 +107,13 @@ directorio getSubdir(directorio dir, Cadena nombre){
             if (isEmptyDir(aux->hermano)){
                 return dir;            
             }
-            else if(strcmp(aux->nombre, nombre) == 0){
-                return aux;        
-            }
             aux = aux->hermano;
             cout << aux->nombre;    
         }
         return aux; 
     }
 }
+
 
 bool hasArchs(directorio location){
     if(location->archivos == NULL){
@@ -126,7 +124,6 @@ bool hasArchs(directorio location){
 
 directorio insertFile(Cadena nombre, directorio location){
     if(hasArchs(location)){
-        cout<< "HASARCHS";
         if(archAvailability(nombre, location->archivos)){
             Crear_Archivo(nombre, location->archivos);
             printArchName(location->archivos);

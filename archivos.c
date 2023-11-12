@@ -67,5 +67,3 @@ archivo Crear_Archivo(Cadena nombre, archivo location) {
     }
     return nuevoArchivo;
 }
-
-
