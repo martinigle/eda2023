@@ -7,7 +7,6 @@
 
 #include "sistema.h"
 #include "directorio.h"
-
 #include <string.h>
 
 #include <iostream>
@@ -47,15 +46,17 @@ TipoRet CD (Sistema &s, Cadena nombreDirectorio){
 // Cambia directorio. 
     if(strcmp(nombreDirectorio, "..") == 0){
         s->actual = moveToParent(s->actual);
+        cout << "\n ACTUAL:";
         printDirName(s->actual);
         return OK;    
     }
     else if(isSubdir(s->actual, nombreDirectorio) == false){
-        cout << "Ese subdirectorio no existe!";
+        cout << "\nEse subdirectorio no existe!";
         return ERROR;    
     }
     s->actual = getSubdir(s->actual, nombreDirectorio);
-    printDirName(s->actual);	
+    cout << "\n ACTUAL:";
+    printDirName(s->actual);
     return OK;
 }
 	
@@ -63,11 +64,11 @@ TipoRet MKDIR (Sistema &s, Cadena nombreDirectorio){
 // Crea un nuevo directorio. 
 // Para mas detalles ver letra.
     if(strcmp(nombreDirectorio, "RAIZ") == 0){
-        cout << "No se puede crear un directorio de nombre raiz!" ; 
+        cout << "\nNo se puede crear un directorio de nombre raiz!" ; 
         return ERROR;    
     }
     else if(isSubdir(s->actual, nombreDirectorio)){
-        cout << "Ya existe un subdirectorio con ese nombre!" ;       
+        cout << "\nYa existe un subdirectorio con ese nombre!" ;       
         return ERROR;    
     }
     Crear_Directorio(nombreDirectorio, s->actual);
@@ -94,18 +95,10 @@ TipoRet DIR (Sistema &s, Cadena parametro){
 
 TipoRet CREATEFILE(Sistema &s, Cadena nombreArchivo) {
     // Crea un nuevo archivo en el directorio actual.
-    directorio directorioActual = s->actual;
-    archivo archivoActual = directorioActual->archivos;
-    while (archivoActual != NULL) {
-        if (strcmp(archivoActual->nombre, nombreArchivo) == 0) {
-            // Ya existe un archivo con ese nombre en el directorio actual
-            return ERROR;
-        }
-        archivoActual = archivoActual->hermano;
+    if(insertFile(nombreArchivo, s->actual) != NULL){
+        return OK;
     }
-    // El archivo no existe, podemos crearlo
-    archivo nuevoArchivo = Crear_Archivo(nombreArchivo, directorioActual);
-    return OK;
+    return ERROR;
 }
 
 

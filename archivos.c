@@ -7,7 +7,11 @@
 
 #include "archivos.h"
 #include "directorio.h"
-#include "archivos.c"
+#include <string.h>
+#include <iostream>
+
+using namespace std;
+
 
 struct nodo_archivo{
     Cadena nombre;
@@ -17,17 +21,45 @@ struct nodo_archivo{
     archivo hermano;
 };
 
-archivo Crear_Archivo(Cadena nombre, directorio location) {
-    archivo nuevoArchivo = new(archivo);
-    nuevoArchivo->nombre = new(Cadena[MAX_NOMBRE]);
+bool isEmptyArch(archivo arch){
+    return (arch==NULL);
+}
+
+bool archAvailability(Cadena nombre, archivo location){
+    if(isEmptyArch(location)){
+        return true;
+    }
+    else {
+        archivo aux = new(nodo_archivo);
+        aux = location;
+        while(strcmp(aux->nombre, nombre) != 0){
+            if(isEmptyArch(aux->hermano)){
+                return true;
+            }
+            aux = aux->hermano;
+        }
+        return false;
+    }
+}
+
+void printArchName(archivo arch){
+    cout << arch->nombre;
+}
+
+archivo Crear_Archivo(Cadena nombre, archivo location) {
+    archivo nuevoArchivo = new(nodo_archivo);
+    nuevoArchivo->nombre = new char[MAX_NOMBRE];
+    nuevoArchivo->contenido = new char[TEXTO_MAX];
+    nuevoArchivo->permisos = new char[17];
 	strcpy(nuevoArchivo->nombre, nombre);
-    nuevoArchivo->contenido = "";
-    nuevoArchivo->permisos = "Lectura/Escritura";
+    strcpy(nuevoArchivo->contenido, "");
+    strcpy(nuevoArchivo->permisos, "Lectura/Escritura");
     nuevoArchivo->hermano = NULL;
-    if (location->archivos == NULL) {
-        location->archivos = nuevoArchivo;
+    if (isEmptyArch(location)) {
+        location = nuevoArchivo;
     } else {
-        archivo aux = location->archivos;
+        archivo aux = new(nodo_archivo);
+        aux = location;
         while (aux->hermano != NULL) {
             aux = aux->hermano;
         }
@@ -35,3 +67,5 @@ archivo Crear_Archivo(Cadena nombre, directorio location) {
     }
     return nuevoArchivo;
 }
+
+

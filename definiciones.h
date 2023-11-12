@@ -10,12 +10,10 @@
 
 #define MAX_COMANDO 50
 #define MAX_NOMBRE 15
+#define TEXTO_MAX 22
 
 enum _retorno{ OK, ERROR, NO_IMPLEMENTADA};
 typedef enum _retorno TipoRet;
-
-enum tipoArchivo{ Lectura, Lectura_Escritura};
-typedef enum tipoArchivo privilegio;
 
 typedef char* Cadena;
 

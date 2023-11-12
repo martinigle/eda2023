@@ -2,8 +2,7 @@
 #define ARCHIVO_H
 
 #include "definiciones.h"
-#include "directorio.h"
-#include "directorio.c"
+
 
 // Estructuras de Datos y Algoritmos - Curso 2023
 // Tecnologo en Informatica FIng - DGETP - UTEC
@@ -14,6 +13,13 @@
 
 typedef struct nodo_archivo * archivo;
 
-archivo Crear_Archivo(Cadena nombre, directorio location);
+bool archAvailability(Cadena nombre, archivo location);
+
+bool isEmptyArch(archivo location);
+
+void printArchName(archivo arch);
+
+archivo Crear_Archivo(Cadena nombre, archivo location);
+
 
 #endif
