@@ -7,6 +7,7 @@
 
 #include "sistema.h"
 #include "directorio.h"
+#include "archivos.h"
 #include <string.h>
 
 #include <iostream>
@@ -90,7 +91,32 @@ TipoRet MOVE (Sistema &s, Cadena nombre, Cadena directorioDestino){
 TipoRet DIR (Sistema &s, Cadena parametro){
 // Muestra el contenido del directorio actual.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+	if (strcmp(parametro, "/S") == 0)
+	{
+		return NO_IMPLEMENTADA;
+	}
+	else
+	{
+		directorio auxDir = s->actual->subdirectorio;
+		archivo auxArch = s->actual->archivos;
+		
+		
+		while (!isEmptyArch(auxArch))
+		{
+			printArchName(auxArch);
+			cout << "\t\t\t\t\t" << auxArch->permisos << "\n";
+			auxArch = auxArch->hermano;
+		}
+
+		while (!isEmptyDir(auxDir))
+		{
+			printDirName(auxDir);
+			cout << "\n";
+		}
+		
+		
+	}	
+	return OK;
 }
 
 TipoRet CREATEFILE(Sistema &s, Cadena nombreArchivo) {
