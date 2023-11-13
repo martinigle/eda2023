@@ -85,26 +85,37 @@ archivo getArch(Cadena nombre, archivo location){
 }
 
 archivo insertContent(Cadena texto, Cadena nombre, archivo arch){
-    //TODO: change strcat because overlaps TEXTO_MAX
     if(archAvailability(nombre, arch) == false && (strcmp(getArch(nombre, arch)->permisos, "Lectura/Escritura") == 0)){
-        if(strlen(texto)<TEXTO_MAX){
-            getArch(nombre, arch)->contenido = new char[strlen(texto)];
-            strcat(getArch(nombre, arch)->contenido, texto);
-            return arch;
-        } else {
-            getArch(nombre, arch)->contenido = new char[TEXTO_MAX];
-            strcat(getArch(nombre, arch)->contenido, texto);
-            return arch;
-        }        
-    } 
+        if((getArch(nombre, arch)->contenido == NULL)){
+            if(strlen(texto)<TEXTO_MAX){
+                getArch(nombre, arch)->contenido = new char[strlen(texto)];
+                strncpy(getArch(nombre, arch)->contenido, texto, strlen(texto));
+                return arch;
+            } else {
+                getArch(nombre, arch)->contenido = new char[TEXTO_MAX];
+                strncpy(getArch(nombre, arch)->contenido, texto, TEXTO_MAX);
+                return arch;
+            }
+        }
+        else {
+            if(strlen(getArch(nombre, arch)->contenido)<TEXTO_MAX){
+                 strncat(getArch(nombre, arch)->contenido, texto, (TEXTO_MAX - strlen(getArch(nombre, arch)->contenido)));
+                 return arch;
+            } 
+            else{
+                return arch;
+            }
+        }  
+    }       
+          
     return NULL;
 }
 
 archivo deleteContent(Cadena nombre, int k, archivo arch){
-    //TODO: FIX
     if(archAvailability(nombre, arch) == false && (strcmp(getArch(nombre, arch)->permisos, "Lectura/Escritura") == 0)){
-        Cadena aux = new char[strlen(getArch(nombre, arch)->contenido)-k];
-        strcpy(aux, getArch(nombre, arch)->contenido);
+        int newLength = strlen(getArch(nombre, arch)->contenido)-k;
+        Cadena aux = new char[newLength];
+        strncpy(aux, getArch(nombre, arch)->contenido, newLength);
         getArch(nombre, arch)->contenido = aux;
         return arch;
     }

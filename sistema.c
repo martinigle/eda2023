@@ -96,7 +96,8 @@ TipoRet DIR (Sistema &s, Cadena parametro){
     }
     else if (strcmp(parametro, "a") == 0  && printDir(s->actual) != NULL){
         return OK;
-    }
+    }   
+    cout << "Al parecer el subdirectorio esta vacio!";
     return ERROR;
 }
 

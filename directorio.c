@@ -158,7 +158,8 @@ directorio printContent(Cadena nombre, directorio location){
 }
 
 directorio printDir(directorio location){
-    if(isEmptyDir(location)){
+    //TODO: GET PATH
+    if(isEmptyDir(location->subdirectorio)){
         if(hasArchs(location)){
             printArchList(location->archivos);
             return location; 
