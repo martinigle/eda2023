@@ -36,6 +36,8 @@ directorio deleteText(Cadena nombre, int k, directorio location);
 
 directorio printContent(Cadena nombre, directorio location);
 
+directorio printDir(directorio location);
+
 bool isSubdir(directorio dir, Cadena nombre);
 //Recorre la lista de subdirectorios de un directorio hasta encontrar el deseado y retorna true/false en caso de encontrarlo o no
 

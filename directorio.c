@@ -32,8 +32,7 @@ bool isSubdir(directorio dir, Cadena nombre){
         return false;
     } 
     else {
-        directorio aux = new(nodo_directorio);
-        aux = dir->subdirectorio;
+        directorio aux = dir->subdirectorio;
         while(strcmp(aux->nombre, nombre) != 0){
             if (isEmptyDir(aux->hermano)){
                 return false;            
@@ -73,8 +72,7 @@ directorio Crear_Directorio(Cadena nombre, directorio location){
             d->hermano = NULL;
         } 
         else {
-            directorio aux = new(nodo_directorio);
-            aux = location->subdirectorio;
+            directorio aux = location->subdirectorio;
             while(aux->hermano != NULL){
                aux = aux->hermano;
             }
@@ -157,6 +155,27 @@ directorio printContent(Cadena nombre, directorio location){
         return location;
     }
     return NULL;
+}
+
+directorio printDir(directorio location){
+    if(isEmptyDir(location)){
+        if(hasArchs(location)){
+            printArchList(location->archivos);
+            return location; 
+        }
+        return NULL;
+    }
+    directorio aux = location->subdirectorio;
+    while(aux->hermano != NULL){
+       cout << aux->nombre << "\n";
+       aux = aux->hermano;
+    }
+    cout << aux->nombre << "\n";
+    if(hasArchs(location)){
+      printArchList(location->archivos);
+      return location;     
+    }
+    return location;
 }
 
 //TODO: IMPLEMENTATION OF ARCHS (needs deleteArch to be able to complete this function)

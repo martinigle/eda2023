@@ -63,7 +63,6 @@ archivo Crear_Archivo(Cadena nombre, archivo location) {
             aux = aux->hermano;
         }
         aux->hermano = nuevoArchivo;
-        cout << aux->nombre;
     }
     return nuevoArchivo;
 }
@@ -116,5 +115,22 @@ void printArchContent(Cadena nombre, archivo location){
     if(!isEmptyArch(location) && (archAvailability(nombre, location) == false)){
         cout << getArch(nombre, location)->contenido;
     }
+}
+
+archivo head(archivo arch){
+    return arch;
+}
+
+archivo tail(archivo arch){
+    if(arch->hermano != NULL)
+        return arch->hermano;
+}
+
+void printArchList(archivo location){
+    if(!isEmptyArch(location)){
+        cout << location->nombre << " " << location->permisos << "\n";
+        printArchList(head(tail(location)));
+    }
+    return;
 }
 
