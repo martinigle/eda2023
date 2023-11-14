@@ -19,8 +19,21 @@ bool isEmptyArch(archivo location);
 
 void printArchName(archivo arch);
 
+void printArchList(archivo arch);
+
+void printArchContent(Cadena nombre, archivo location);
+
+archivo insertContent(Cadena texto, Cadena nombre, archivo arch);
+
+archivo deleteContent(Cadena nombre, int k, archivo arch);
+
+archivo getArch(Cadena nombre, archivo location);
+
 archivo Crear_Archivo(Cadena nombre, archivo location);
 
+archivo head(archivo arch);
+
+archivo tail(archivo arch);
 
 #endif
 

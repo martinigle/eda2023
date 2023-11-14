@@ -22,7 +22,7 @@ struct _sistema{
 TipoRet CREARSISTEMA(Sistema &s){
 // Inicializa el sistema para que contenga únicamente al directorio RAIZ, sin subdirectorios ni archivos.
 // Para mas detalles ver letra.
-cout << "0\n";
+cout << "CREANDO SISTEMA\n";
 	s = new(_sistema);
 cout << "1\n";
 	Cadena nombre = new char[MAX_NOMBRE];
@@ -46,7 +46,7 @@ TipoRet CD (Sistema &s, Cadena nombreDirectorio){
 // Cambia directorio. 
     if(strcmp(nombreDirectorio, "..") == 0){
         s->actual = moveToParent(s->actual);
-        cout << "\n ACTUAL:";
+        cout << "\n ACTUAL: ";
         printDirName(s->actual);
         return OK;    
     }
@@ -55,7 +55,7 @@ TipoRet CD (Sistema &s, Cadena nombreDirectorio){
         return ERROR;    
     }
     s->actual = getSubdir(s->actual, nombreDirectorio);
-    cout << "\n ACTUAL:";
+    cout << "\n ACTUAL: ";
     printDirName(s->actual);
     return OK;
 }
@@ -90,7 +90,15 @@ TipoRet MOVE (Sistema &s, Cadena nombre, Cadena directorioDestino){
 TipoRet DIR (Sistema &s, Cadena parametro){
 // Muestra el contenido del directorio actual.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+
+    if(strcmp(parametro, "/S") == 0){
+	    return NO_IMPLEMENTADA;
+    }
+    else if (strcmp(parametro, "a") == 0  && printDir(s->actual) != NULL){
+        return OK;
+    }   
+    cout << "Al parecer el subdirectorio esta vacio!";
+    return ERROR;
 }
 
 TipoRet CREATEFILE(Sistema &s, Cadena nombreArchivo) {
@@ -124,7 +132,11 @@ TipoRet IC (Sistema &s, Cadena nombreArchivo, Cadena texto){
 TipoRet IF (Sistema &s, Cadena nombreArchivo, Cadena texto){
 // Agrega un texto al final del archivo NombreArchivo.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(insertText(nombreArchivo, texto, s->actual) != NULL){
+        return OK;
+    }
+    
+	return ERROR;
 }
 
 TipoRet DC (Sistema &s, Cadena nombreArchivo, int k){
@@ -136,13 +148,20 @@ TipoRet DC (Sistema &s, Cadena nombreArchivo, int k){
 TipoRet DF (Sistema &s, Cadena nombreArchivo, int k){
 // Elimina los a lo sumo K últimos caracteres del archivo parámetro.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+	if(deleteText(nombreArchivo, k, s->actual) != NULL){
+        return OK;
+    }
+    
+	return ERROR;
 }
 
 TipoRet TYPE (Sistema &s, Cadena nombreArchivo){
 // Imprime el contenido del archivo parámetro.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(printContent(nombreArchivo, s->actual)!=NULL){
+        return OK;    
+    }
+	return ERROR;
 }
 
 TipoRet SEARCH (Sistema &s, Cadena nombreArchivo, Cadena texto){

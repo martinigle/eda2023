@@ -32,8 +32,7 @@ bool isSubdir(directorio dir, Cadena nombre){
         return false;
     } 
     else {
-        directorio aux = new(nodo_directorio);
-        aux = dir->subdirectorio;
+        directorio aux = dir->subdirectorio;
         while(strcmp(aux->nombre, nombre) != 0){
             if (isEmptyDir(aux->hermano)){
                 return false;            
@@ -42,6 +41,13 @@ bool isSubdir(directorio dir, Cadena nombre){
         }
         return true; 
     }
+}
+
+bool hasArchs(directorio location){
+    if(location->archivos == NULL){
+        return false;    
+    }
+    return true;
 }
 
 void printDirName(directorio dir){
@@ -66,8 +72,7 @@ directorio Crear_Directorio(Cadena nombre, directorio location){
             d->hermano = NULL;
         } 
         else {
-            directorio aux = new(nodo_directorio);
-            aux = location->subdirectorio;
+            directorio aux = location->subdirectorio;
             while(aux->hermano != NULL){
                aux = aux->hermano;
             }
@@ -114,19 +119,10 @@ directorio getSubdir(directorio dir, Cadena nombre){
     }
 }
 
-
-bool hasArchs(directorio location){
-    if(location->archivos == NULL){
-        return false;    
-    }
-    return true;
-}
-
 directorio insertFile(Cadena nombre, directorio location){
     if(hasArchs(location)){
         if(archAvailability(nombre, location->archivos)){
             Crear_Archivo(nombre, location->archivos);
-            printArchName(location->archivos);
             return location;
         }
         else {
@@ -134,6 +130,65 @@ directorio insertFile(Cadena nombre, directorio location){
         }   
     }
     location->archivos = Crear_Archivo(nombre, NULL);
+    return location;
+}
+
+directorio insertText(Cadena nombre, Cadena texto, directorio location){
+    if(hasArchs(location)){
+        insertContent(texto, nombre, location->archivos);
+        return location;
+    }
+    return NULL;    
+}
+
+directorio deleteText(Cadena nombre, int k, directorio location){
+    if(hasArchs(location)){
+        deleteContent(nombre, k, location->archivos);
+        return location;
+    }
+    return NULL;
+}
+
+directorio printContent(Cadena nombre, directorio location){
+    if(hasArchs(location)){
+        printArchContent(nombre, location->archivos);
+        return location;
+    }
+    return NULL;
+}
+
+directorio printDir(directorio location){
+    directorio aux = location;
+    Cadena path = new char[50];
+    Cadena auxStr = new char[50];
+    strcpy(path, location->nombre);
+    while(strcmp(aux->nombre, "RAIZ") != 0){
+        strcpy(auxStr, path);        
+        aux = moveToParent(aux);
+        strcpy(path, aux->nombre);
+        strcat(path, "/");
+        strcat(path, auxStr);
+    }
+    cout << path << ":\n";
+    free(path);
+    free(auxStr);
+    if(isEmptyDir(location->subdirectorio)){
+        if(hasArchs(location)){
+            printArchList(location->archivos);
+            return location; 
+        }
+        return NULL;
+    }
+    aux = location->subdirectorio;
+    while(aux->hermano != NULL){
+       cout << aux->nombre << "\n";
+       aux = aux->hermano;
+    }
+    cout << aux->nombre << "\n";
+    if(hasArchs(location)){
+      printArchList(location->archivos);
+      return location;     
+    }
     return location;
 }
 
