@@ -46,16 +46,16 @@ TipoRet CD (Sistema &s, Cadena nombreDirectorio){
 // Cambia directorio. 
     if(strcmp(nombreDirectorio, "..") == 0){
         s->actual = moveToParent(s->actual);
-        cout << "\n ACTUAL: ";
+        cout << "ACTUAL: ";
         printDirName(s->actual);
         return OK;    
     }
     else if(isSubdir(s->actual, nombreDirectorio) == false){
-        cout << "\nEse subdirectorio no existe!";
+        cout << "Ese subdirectorio no existe!";
         return ERROR;    
     }
     s->actual = getSubdir(s->actual, nombreDirectorio);
-    cout << "\n ACTUAL: ";
+    cout << "ACTUAL: ";
     printDirName(s->actual);
     return OK;
 }

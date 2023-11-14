@@ -113,7 +113,6 @@ directorio getSubdir(directorio dir, Cadena nombre){
                 return dir;            
             }
             aux = aux->hermano;
-            cout << aux->nombre;    
         }
         return aux; 
     }
