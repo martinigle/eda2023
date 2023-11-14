@@ -132,6 +132,14 @@ directorio insertFile(Cadena nombre, directorio location){
     return location;
 }
 
+directorio changePrivileges(directorio location, Cadena nombre, Cadena parametro){
+    if(hasArchs(location)){
+        changeArchPrivileges(nombre, parametro, location->archivos);
+        return location;
+    }
+    return NULL; 
+}
+
 directorio insertText(Cadena nombre, Cadena texto, directorio location){
     if(hasArchs(location)){
         insertContent(texto, nombre, location->archivos);

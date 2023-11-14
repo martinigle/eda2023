@@ -120,7 +120,10 @@ TipoRet DELETE (Sistema &s, Cadena nombreArchivo){
 TipoRet ATTRIB (Sistema &s, Cadena nombreArchivo, Cadena parametro){
 // Agrega un texto al comienzo del archivo NombreArchivo.
 // Para mas detalles ver letra.
-	return NO_IMPLEMENTADA;
+    if(parametro != NULL && (changePrivileges(s->actual, nombreArchivo, parametro) != NULL)){
+        return OK;
+    }
+	return ERROR;
 }
 
 TipoRet IC (Sistema &s, Cadena nombreArchivo, Cadena texto){
