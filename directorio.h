@@ -26,6 +26,8 @@ directorio getSubdir(directorio dir, Cadena nombre);
 
 directorio moveToParent(directorio dir);
 
+directorio changePrivileges(directorio location, Cadena nombre, Cadena parametro);
+
 directorio deleteDir(directorio dir);
 
 directorio insertFile(Cadena nombre, directorio dir);
