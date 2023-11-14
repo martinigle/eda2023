@@ -158,7 +158,20 @@ directorio printContent(Cadena nombre, directorio location){
 }
 
 directorio printDir(directorio location){
-    //TODO: GET PATH
+    directorio aux = location;
+    Cadena path = new char[50];
+    Cadena auxStr = new char[50];
+    strcpy(path, location->nombre);
+    while(strcmp(aux->nombre, "RAIZ") != 0){
+        strcpy(auxStr, path);        
+        aux = moveToParent(aux);
+        strcpy(path, aux->nombre);
+        strcat(path, "/");
+        strcat(path, auxStr);
+    }
+    cout << path << ":\n";
+    free(path);
+    free(auxStr);
     if(isEmptyDir(location->subdirectorio)){
         if(hasArchs(location)){
             printArchList(location->archivos);
@@ -166,7 +179,7 @@ directorio printDir(directorio location){
         }
         return NULL;
     }
-    directorio aux = location->subdirectorio;
+    aux = location->subdirectorio;
     while(aux->hermano != NULL){
        cout << aux->nombre << "\n";
        aux = aux->hermano;
