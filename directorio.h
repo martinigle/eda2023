@@ -22,6 +22,9 @@ directorio getSubdir(directorio dir, Cadena nombre);
 directorio moveToParent(directorio dir);
 //Retorna el directorio padre del directorio actual, en caso de ser raiz retorna null
 
+directorio changePrivileges(directorio location, Cadena nombre, Cadena parametro);
+//Cambia los privilegios de un archivo "nombre" en la lista de archivos segun el parametro, retorna NULL si el archivo no existe
+
 directorio insertFile(Cadena nombre, directorio dir);
 //Inserta un archivo en la lista de archivos
 

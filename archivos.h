@@ -28,6 +28,9 @@ void printArchList(archivo arch);
 void printArchContent(Cadena nombre, archivo location);
 //Imprime el contenido del archivo de nombre "nombre" en el directorio parametro
 
+archivo changeArchPrivileges(Cadena nombre, Cadena parametro, archivo location);
+//Retorna el archivo de nombre "nombre" luego de cambiar los privilegios segun "parametro", retorna NULL si no existe el archivo  
+
 archivo head(archivo arch);
 //Retorna el primer elemento de la lista de archivos
 

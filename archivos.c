@@ -106,11 +106,41 @@ archivo insertContent(Cadena texto, Cadena nombre, archivo arch){
                 return arch;
             }
         }  
-    }       
-          
+    }
+
+    if(archAvailability(nombre, arch) == true){
+        cout << "El archivo no existe! ";    
+        return NULL;        
+    }
+    
+    cout << "El archivo no tiene permisos de escritura! ";      
     return NULL;
 }
 
+archivo changeArchPrivileges(Cadena nombre, Cadena parametro, archivo location){
+    if(archAvailability(nombre, location) == false){
+        if(strcmp(parametro, "+W") == 0){
+                if(strcmp(getArch(nombre, location)->permisos, "Lectura/Escritura") == 0){
+                    cout << "Ya tiene esos permisos!";
+                    return location;            
+                } else {
+                    strcpy(getArch(nombre, location)->permisos, "Lectura/Escritura");
+                    return location;
+                }
+        } else {
+            if(strcmp(getArch(nombre, location)->permisos, "Lectura") == 0){
+                    cout << "Ya tiene esos permisos!";
+                    return location;            
+                } else {
+                    strcpy(getArch(nombre, location)->permisos, "Lectura");
+                    return location;
+            }
+        }
+    }
+    cout << "Ese archivo no existe!";
+    return location;
+}
+    
 archivo deleteContent(Cadena nombre, int k, archivo arch){
     if(archAvailability(nombre, arch) == false && (strcmp(getArch(nombre, arch)->permisos, "Lectura/Escritura") == 0)){
         int newLength = strlen(getArch(nombre, arch)->contenido)-k;
@@ -123,7 +153,7 @@ archivo deleteContent(Cadena nombre, int k, archivo arch){
 }
 
 void printArchContent(Cadena nombre, archivo location){
-    if(!isEmptyArch(location) && (archAvailability(nombre, location) == false)){
+    if(!isEmptyArch(location) && (archAvailability(nombre, location) == false) && (getArch(nombre, location)->contenido != NULL)){
         cout << getArch(nombre, location)->contenido;
     }
     cout << "Ese archivo no existe!";
