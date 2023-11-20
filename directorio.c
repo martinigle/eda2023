@@ -83,15 +83,6 @@ directorio Crear_Directorio(Cadena nombre, directorio location){
 	return d;
 }
 
-directorio head(directorio dir){
-    return dir;
-}
-
-directorio tail(directorio dir){
-    if(dir->hermano != NULL)
-        return dir->hermano;
-}
-
 directorio moveToParent(directorio dir){
     if(dir->padre != NULL){
         dir = dir->padre;
@@ -133,10 +124,10 @@ directorio insertFile(Cadena nombre, directorio location){
 }
 
 directorio insertText(Cadena nombre, Cadena texto, directorio location){
-    if(hasArchs(location)){
-        insertContent(texto, nombre, location->archivos);
+    if(hasArchs(location) && (insertContent(texto, nombre, location->archivos) != NULL)){
         return location;
     }
+    cout << "Ese archivo no existe!";
     return NULL;    
 }
 
@@ -190,24 +181,3 @@ directorio printDir(directorio location){
     }
     return location;
 }
-
-//TODO: IMPLEMENTATION OF ARCHS (needs deleteArch to be able to complete this function)
-//directorio deleteDir(directorio location, Cadena nombre){
-//  if(strcmp(nombre, "RAIZ") == 0){
-//      cout << "Este directorio no se puede eliminar!"        
-//      return;   
-//  }
-
-//  if else(location->archs == NULL){}
-//  if else(isEmpty(location->subdirectorio)){}
-
-//  if else(isSubdir(location, nombre)){
-//      directorio aux = new(nodo_directorio);        
-//  }
-//}
-
-
-//directorio findByName(Sistema &s, Cadena nombre){   
-//TODO: IMPLEMENTATION
-//    return found;
-//}

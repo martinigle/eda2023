@@ -91,10 +91,12 @@ TipoRet DIR (Sistema &s, Cadena parametro){
 // Muestra el contenido del directorio actual.
 // Para mas detalles ver letra.
 
+
+//TODO: Actualmente hay que usar el comando con un parametro "." para prevenir un segfault (DIR .);
     if(strcmp(parametro, "/S") == 0){
 	    return NO_IMPLEMENTADA;
     }
-    else if (strcmp(parametro, "a") == 0  && printDir(s->actual) != NULL){
+    else if (strcmp(parametro, ".") == 0  && printDir(s->actual) != NULL){
         return OK;
     }   
     cout << "Al parecer el subdirectorio esta vacio!";
@@ -161,6 +163,7 @@ TipoRet TYPE (Sistema &s, Cadena nombreArchivo){
     if(printContent(nombreArchivo, s->actual)!=NULL){
         return OK;    
     }
+    cout << "Ese archivo no existe!";
 	return ERROR;
 }
 

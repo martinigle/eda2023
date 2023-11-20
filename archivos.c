@@ -126,6 +126,7 @@ void printArchContent(Cadena nombre, archivo location){
     if(!isEmptyArch(location) && (archAvailability(nombre, location) == false)){
         cout << getArch(nombre, location)->contenido;
     }
+    cout << "Ese archivo no existe!";
 }
 
 archivo head(archivo arch){
